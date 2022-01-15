@@ -1,5 +1,9 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const { fuchsia } = require('color-name');
+const { get } = require('http');
+// const { checkPrime } = require('crypto');
+// const { get } = require('lodash');
 
 // // TODO: Create a function that returns a license badge based on which license is passed in
 // // If there is no license, return an empty string
@@ -22,68 +26,87 @@ const fs = require('fs');
 
 // module.exports = generateMarkdown;
 
+const generateREADME = ({ title, description, usage, installation, contribution, license, tests, github, email}) => 
+`
+# ${title}
 
-const generateREADME = ({ title, description, usage, installation, contribution, test, github, email}) =>
-  `
-  # ${title}
+${description}
 
-    ${description}
+## Installation
 
-    ## Installation
+## Table of Contents
 
-    ${installation}
+* [Installation](#installation)
+* [Usage](#usage)
+* [License](#license)
+* [Contributing](#contributing)
+* [Tests](#tests)
+* [Contact](#contact)
 
-    ## Usage
+${installation}
 
-    \```
-    ${usage}
-    \```
+## Usage
 
+${usage}
 
-    ## &
+## License
+${license}
 
-    ## License
-    [MIT](https://choosealicense.com/licenses/mit/)
-  `;
+## Contributing
+${contribution}
+
+## Tests
+${tests}
+
+# Contact
+If you have any issues please contact me at [${email}](${email}). Checkout out my work at [${github}](https://github.com/${github}).
+
+`;
+
 
 inquirer
   .prompt([
     {
-      type: 'input',
-      name: 'title',
-      message: 'What is your your project title?',
+    type: 'input',
+    name: 'title',
+    message: 'What is your your project title?',
     },
     {
-      type: 'input',
-      name: 'description',
-      message: 'Give a description of what your project is about.',
+    type: 'input',
+    name: 'description',
+    message: 'Give a description of what your project is about.',
     },
     {
-      type: 'input',
-      name: 'usage',
-      message: 'Provide an example of how a feature would work.',
+    type: 'input',
+    name: 'usage',
+    message: 'Provide an example of how a feature would work.',
     },
     {
-      type: 'input',
-      name: 'installation',
-      message: 'What are the installation instructions?',
+    type: 'input',
+    name: 'installation',
+    message: 'What command should be ran to install dependencies?',
     },
     {
-      type: 'input',
-      name: 'contribution',
-      message: 'What are the contribution guidelines?',
+    type: 'input',
+    name: 'contribution',
+    message: 'What are the contribution guidelines?',
     },
     {
-      type: 'input',
-      name: 'test',
-      message: 'What are the test instructions?',
+    type: 'input',
+    name: 'tests',
+    message: 'What command should be run to run tests?',
     },
-    // Don't know what a license badge is
-    //   type: 'list',
-    //   choices: [ "Choice A", 'MIT', "choice B" ],
-    //   name: 'license',
-    //   message: 'Enter your LinkedIn URL.',
-    // },
+    {
+    type: 'input',
+    name: 'repo',
+    message: 'What does the user need to know about using the repo?',
+    },
+    {
+    type: 'list',
+    choices: [ "APACHE", 'MIT', "GPL 3.0", 'BSD 3', 'None' ],
+    name: 'license',
+    message: 'What kind of license should your project have?',
+    },
     {
     type: 'input',
     name: 'github',
@@ -96,14 +119,7 @@ inquirer
     },
   ])
   .then((answers) => {
-    console.log(answers)
     const READMEContent = generateREADME(answers);
-
-    // fs.writeFile('README.md', htmlPageContent, (err) =>
-    //   err ? console.log(err) : console.log('Successfully created index.html!')
-    // );
-    // Replace READMEContent with `${process.argv[2]}\n` if it doesn't work
-
     fs.appendFile('README.md', READMEContent, (err) =>
     err ? console.error(err) : console.log('README.md generated.')
 );
