@@ -1,40 +1,20 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-function renderLicenseBadge(license) {
-switch (license) {
-  case 'APACHE':
-    let license = '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)'
-    break;
-  case 'MIT':
-    let license = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
-    break;
-  case 'GPL 3.0':
-    let license = '[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)'
-    break;
-  case 'BSD 3':
-    let license = '[![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)'
-    break;
-  default:
-    let license = ''
-  }
-};
-renderLicenseBadge('APACHE')
 
-const generateREADME = ({ title, description, usage, installation, contribution, license, tests, github, email}) => 
+
+const generateREADME = ({ title, description, usage, installation, contribution, license, tests, github, email, color}) => 
 `
 # ${title}
 
+[![${license}](https://img.shields.io/badge/License-${license}_2.0-${color}.svg)](https://opensource.org/licenses/${license}-2.0)
+
 ${description}
-
-## License
-[${license}](${license})
-
++
 ## Table of Contents
 
 * [Installation](#installation)
 * [Usage](#usage)
-* [License](#license)
 * [Contributing](#contributing)
 * [Tests](#tests)
 * [Contact](#contact)
@@ -42,7 +22,7 @@ ${description}
 ## Installation
 
 ${installation}
-
+node
 ## Usage
 
 ${usage}
@@ -98,9 +78,15 @@ inquirer
     },
     {
     type: 'list',
-    choices: [ "APACHE", 'MIT', "GPL 3.0", 'BSD 3', 'None' ],
+    choices: [ "Apache", 'MIT', 'ISC', 'None' ],
     name: 'license',
     message: 'What kind of license should your project have?',
+    },
+    {
+    type: 'list',
+    choices: ['yellow', "brightgreen", 'red'],
+    name: 'color',
+    message: 'What color do you want the badge to be?',
     },
     {
     type: 'input',
@@ -120,3 +106,22 @@ inquirer
 );
 });
 
+// function renderLicenseBadge(license) {
+//   switch (license) {
+//     case 'APACHE':
+//       let license = '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)'
+//       break;
+//     case 'MIT':
+//       let license = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
+//       break;
+//     case 'GPL 3.0':
+//       let license = '[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)'
+//       break;
+//     case 'CC0':
+//       let license = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
+//       break;
+//     default:
+//       let license = ''
+//     }
+//   };
+//   renderLicenseBadge('APACHE')
