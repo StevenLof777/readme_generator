@@ -1,30 +1,25 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const { fuchsia } = require('color-name');
-const { get } = require('http');
-// const { checkPrime } = require('crypto');
-// const { get } = require('lodash');
 
-// // TODO: Create a function that returns a license badge based on which license is passed in
-// // If there is no license, return an empty string
-// function renderLicenseBadge(license) {}
-
-// // TODO: Create a function that returns the license link
-// // If there is no license, return an empty string
-// function renderLicenseLink(license) {}
-
-// // TODO: Create a function that returns the license section of README
-// // If there is no license, return an empty string
-// function renderLicenseSection(license) {}
-
-// // TODO: Create a function to generate markdown for README
-// function generateMarkdown(data) {
-//   return `# ${data.title}
-
-// `;
-// }
-
-// module.exports = generateMarkdown;
+function renderLicenseBadge(license) {
+switch (license) {
+  case 'APACHE':
+    let license = '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)'
+    break;
+  case 'MIT':
+    let license = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
+    break;
+  case 'GPL 3.0':
+    let license = '[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)'
+    break;
+  case 'BSD 3':
+    let license = '[![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)'
+    break;
+  default:
+    let license = ''
+  }
+};
+renderLicenseBadge('APACHE')
 
 const generateREADME = ({ title, description, usage, installation, contribution, license, tests, github, email}) => 
 `
@@ -32,7 +27,8 @@ const generateREADME = ({ title, description, usage, installation, contribution,
 
 ${description}
 
-## Installation
+## License
+[${license}](${license})
 
 ## Table of Contents
 
@@ -43,14 +39,13 @@ ${description}
 * [Tests](#tests)
 * [Contact](#contact)
 
+## Installation
+
 ${installation}
 
 ## Usage
 
 ${usage}
-
-## License
-${license}
 
 ## Contributing
 ${contribution}
@@ -124,3 +119,4 @@ inquirer
     err ? console.error(err) : console.log('README.md generated.')
 );
 });
+
