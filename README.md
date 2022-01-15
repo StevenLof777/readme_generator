@@ -1,9 +1,10 @@
 
-# Title
+# Dookie
 
-descrip
+pookier
 
-## Installation
+## License
+[APACHE](APACHE)
 
 ## Table of Contents
 
@@ -14,21 +15,20 @@ descrip
 * [Tests](#tests)
 * [Contact](#contact)
 
-instal
+## Installation
+
+asdf
 
 ## Usage
 
-example
-
-## License
-APACHE
+oii
 
 ## Contributing
-guidlines
+e3
 
 ## Tests
-test
+sdcxv
 
 # Contact
-If you have any issues please contact me at [stevenlofquist7@gmail.com](stevenlofquist7@gmail.com). Checkout out my work at [StevenLof777](https://github.com/StevenLof777).
+If you have any issues please contact me at [asdf](asdf). Checkout out my work at [asdf](https://github.com/asdf).
 
